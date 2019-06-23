@@ -1,16 +1,16 @@
 import random as rnd
 import math
 
-offset = 50
+offset = 20
 padding = 0
 theta_steps = 360
 cmap = []
-noise_y_range = 100
-noise_increment = 0.009
+noise_y_range = 150
+noise_increment = 0.04
 
 def setup():
     size(800, 800)
-    background(51)
+    background(0)
     time = 0
     circles = {}
     
@@ -20,34 +20,31 @@ def setup():
     for rho in range(0, height/2 - 100, offset):
         c = []
         for theta in range(theta_steps):
-            noise_theta = noise(time)
             noise_rho = noise(time) * noise_y_range
-            p = {'rho': rho + noise_rho, 'theta': theta + noise_theta}
+            p = {'rho': rho + noise_rho, 'theta': theta}
             c.append(p)
             
             if theta >= theta_steps//2:
-                time -= noise_increment
+                time -= noise_increment * random(1.0) * (rho)
             else:
-                time += noise_increment
+                time += noise_increment * random(1.0) * (rho)
         circles[rho] = c
         
     # create color map
-    c_begin = color(255, 0, 0)
-    c_end = color(50, 0, 150)
+    c_begin = color(0,158,253)
+    c_end = color(42,245,152)
     gradient_step = 1.0/len(circles)
     
     for c in range(len(circles)):
         c_lerp = lerpColor(c_begin, c_end, gradient_step*c)
         cmap.append(c_lerp)
     
-            
     # draw the lines
     circle_count = 0
-    print(circles.keys())
     for rho_index, c in sorted(circles.items()):
         for k in range(len(c[:-1])):
-            stroke(255)
-            strokeWeight(2)
+            #stroke(0)
+            #strokeWeight(2)
             
             #connect tail with head
             if k == len(c[:-1])-1: #last element
@@ -70,7 +67,6 @@ def setup():
             if rho_index == height/2 - 100 - offset:
                 pass
             else:
-                #print(rho_index)
                 current_circle = circles[rho_index]
                 next_circle = circles[rho_index + offset] #exception
                 
@@ -102,4 +98,4 @@ def setup():
                 endShape(CLOSE)
     
         circle_count += 1
-        #save("joy_division_experiment_" + str(rnd.random()*1000) + ".png")
+        save("joy_division_experiment_" + str(rnd.random()*1000) + ".png")
