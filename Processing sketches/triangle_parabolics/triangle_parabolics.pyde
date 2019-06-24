@@ -1,6 +1,6 @@
 import math
-lines = 200
-k = 4
+lines = 20
+k = 2
 
 def frange(start, stop, step):
     while start < stop:
