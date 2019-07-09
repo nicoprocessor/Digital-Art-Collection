@@ -1,5 +1,5 @@
 import math
-lines = 30
+lines = 40
 radius_x = 550
 radius_y = 550
 axes = 20
@@ -10,7 +10,7 @@ def frange(start, stop, step):
         start += step
 
 def setup():
-    size(1080, 2160)
+    size(1200, 1200)
     background(51)
     ellipseMode(RADIUS)
     stroke(255)
@@ -38,6 +38,6 @@ def setup():
             m2[1] = lerp(p2[1], p0[1], 1.0 - amt)
             
             line(m1[0], m1[1], m2[0], m2[1])
-    save("star_parabolic" + str(random(1000)) + ".png")
+    save("star_parabolic" + str(random(1000)))
     print("Done")
         
